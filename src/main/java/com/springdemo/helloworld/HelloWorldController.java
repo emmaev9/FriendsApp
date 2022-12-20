@@ -12,8 +12,8 @@ import java.util.List;
 
 @RestController
 public class HelloWorldController {
-    @RequestMapping("/goodbye")
-    public  String goodbye(){
-        return "Goodbye";
-    }
+    //@RequestMapping("/goodbye")
+   // public  String goodbye(){
+    //    return "Goodbye";
+   // }
 }
