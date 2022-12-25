@@ -1,39 +1,38 @@
-package com.springdemo.helloworld.user;
+package com.springdemo.helloworld.Controller;
 
+import com.springdemo.helloworld.DTO.UserDTO;
+import com.springdemo.helloworld.Entity.Users;
+import com.springdemo.helloworld.Service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.persistence.PostUpdate;
-import java.time.LocalDate;
-import java.time.Month;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
 @RequestMapping(path = "/users")
 public class UserController {
-    private final UserService userService;
+   private final UserService userService;
 
     @Autowired
     public UserController(UserService userServ){ //dependecy injection
         this.userService = userServ;
     }
 
-    @GetMapping
-    public List<User> getUser(){
-        return userService.getUser();
-    }
+   /*@GetMapping
+    public List<Users> getUsers(){
+        return userService.findAllUsers();
+    }*/
 
     @PostMapping
-    public void registerNewUser(@RequestBody User user){
-        userService.saveUser(user);
+    public void registerNewUser(@RequestBody UserDTO userDTO){
+        userService.saveUser(userDTO);
     }
     @DeleteMapping(path = "{userId}")
     public void deleteUser(@PathVariable("userId") Integer id){
         userService.deleteUser(id);
     }
 
-    @PutMapping(path = "{userId}")
+   @PutMapping(path = "{userId}")
     public void updateStudent(
             @PathVariable("userId") Integer userId,
             @RequestParam(required = false) String name,
@@ -41,6 +40,5 @@ public class UserController {
 
         userService.updateUser(userId, name, email);
     }
-
 
 }

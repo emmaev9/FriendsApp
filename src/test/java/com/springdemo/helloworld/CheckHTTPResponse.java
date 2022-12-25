@@ -11,13 +11,14 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class CheckHTTPResponse {
     @LocalServerPort
-    private  int port;
+    private int port;
 
     @Autowired
     private TestRestTemplate testRestTemplate;
 
     @Test
-    private void shouldPassIfStringMatches(){
-        assertEquals("Hello World!", testRestTemplate.getForObject("http://localhost: " + port + "/", String.class));
+    public void shouldPassIfStringMatches(){
+        assertEquals("hello", testRestTemplate.getForObject("http://localhost:" + port + "/", String.class));
+        
     }
 }

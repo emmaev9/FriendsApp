@@ -1,7 +1,6 @@
-package com.springdemo.helloworld.Photo;
+package com.springdemo.helloworld.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.springdemo.helloworld.user.User;
 
 import javax.persistence.*;
 
@@ -16,8 +15,8 @@ public class Photo {
 
     @JsonIgnore
     @ManyToOne
-    @JoinColumn(name = "user_id")
-    private User user;
+    @JoinColumn(name = "user_id", nullable = false)
+    private Users user;
 
     public int getPhoto_id() {
         return photo_id;
@@ -35,11 +34,11 @@ public class Photo {
         this.link = link;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
-    }
+   }
 }

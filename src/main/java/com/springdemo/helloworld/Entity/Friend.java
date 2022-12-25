@@ -1,18 +1,16 @@
-package com.springdemo.helloworld.Friend;
-
-import com.springdemo.helloworld.user.User;
+package com.springdemo.helloworld.Entity;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "friends")
+@Table(name = "friend")
 public class Friend {
     @Id@GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer friend_id;
 
     @ManyToOne
     @JoinColumn(name = "user_id")
-    private User user;
+    private Users user;
 
     public Integer getFriend_id() {
         return friend_id;
@@ -22,11 +20,11 @@ public class Friend {
         this.friend_id = friend_id;
     }
 
-    public User getUser() {
+    public Users getUser() {
         return user;
     }
 
-    public void setUser(User user) {
+    public void setUser(Users user) {
         this.user = user;
-    }
+   }
 }
