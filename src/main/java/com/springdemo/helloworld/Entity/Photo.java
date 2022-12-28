@@ -1,11 +1,12 @@
 package com.springdemo.helloworld.Entity;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
 
 import javax.persistence.*;
 
 @Entity
-@Table(name = "photo")
+@Table
 public class Photo {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

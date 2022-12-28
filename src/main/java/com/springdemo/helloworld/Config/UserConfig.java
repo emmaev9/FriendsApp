@@ -1,4 +1,4 @@
-package com.springdemo.helloworld.Config;
+/*package com.springdemo.helloworld.Config;
 
 import com.springdemo.helloworld.DTO.UserDTO;
 import com.springdemo.helloworld.Entity.Users;
@@ -46,4 +46,4 @@ public class UserConfig {
         return new BCryptPasswordEncoder();
     }
 
-}
+}*/

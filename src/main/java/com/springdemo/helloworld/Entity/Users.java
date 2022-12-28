@@ -39,103 +39,71 @@ import javax.persistence.*;
 
 public class Users {
 
-   // private static final long serialVersionUID = 1L;
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Integer user_id;
+ // private static final long serialVersionUID = 1L;
+ @Id
+ @GeneratedValue(strategy = GenerationType.IDENTITY)
+ private Integer user_id;
 
-    @Column(nullable=false)
-    private String firstName;
+ @Column(nullable=false)
+ private String firstName;
 
-    @Column(nullable = false)
-    private  String lastName;
+ @Column(nullable = false)
+ private  String lastName;
 
-    @Column(nullable=false)
-    private String email;
+ @Column(nullable=false,  unique=true)
+ private String email;
 
-    @Column(nullable=false)
-    private String password;
-
-
-    @Transient
-    private Integer age; //nu reprezinta o coloana in tabel
-
-    @Column(nullable=false)
-    private LocalDate birthDay;
+ @Column(nullable=false)
+ private String password;
 
 
-    @OneToMany(mappedBy = "user")
-    private List<Photo> photos;
+ @Transient
+ private Integer age; //nu reprezinta o coloana in tabel
 
-    @OneToMany(mappedBy = "user")
-    private List<Friend> friends;
+ @Column(nullable=false)
+ private LocalDate birthDay;
 
-    @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
+
+ @OneToMany(mappedBy = "user")
+ private List<Photo> photos;
+
+ @OneToMany(mappedBy = "user")
+ private List<Friend> friends;
+
+ @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
          CascadeType.DETACH, CascadeType.REFRESH})
-    @JoinTable(
-            name = "user_interest",
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "interest_id")}
-    )
-    private List<Interest> interests;
+ @JoinTable(
+         name = "user_interest",
+         joinColumns = {@JoinColumn(name = "user_id")},
+         inverseJoinColumns = {@JoinColumn(name = "interest_id")}
+ )
+ private List<Interest> interests;
 
-    @Column(nullable=false)
-    private String gender;
+ @Column(nullable=false)
+ private String gender;
 
-    @Column
-    private String work;
+ @Column
+ private String work;
 
-    @Column
-    private String school;
+ @Column
+ private String school;
 
-    @Column
-    private String city;
+ @Column
+ private String city;
 
-    @Column
-    @Size(max = 500,message = "About is max size = 500 character")
-    private String about;
+ @Column
+ @Size(max = 500,message = "About is max size = 500 character")
+ private String about;
 
 
-    public Integer getAge() {
-        return Period.between(birthDay, LocalDate.now()).getYears();
-    }
-
-    public void setAge(Integer age) {
-         this.age = age;
-    }
-
- public Users(String firstName, String lastName, String email, String password, LocalDate birthDay, String gender, String work, String school, String city, String about) {
-  this.firstName = firstName;
-  this.lastName = lastName;
-  this.email = email;
-  this.password = password;
-  this.birthDay = birthDay;
-  this.gender = gender;
-  this.work = work;
-  this.school = school;
-  this.city = city;
-  this.about = about;
+ public Integer getAge() {
+  return Period.between(birthDay, LocalDate.now()).getYears();
  }
 
- @Override
- public String toString() {
-  return "User{" +
-          "id=" + user_id +
-          ", firstName='" + firstName + '\'' +
-          ", lastName='" + lastName + '\'' +
-          ", email='" + email + '\'' +
-          ", password='" + password + '\'' +
-          ", age=" + age +
-          ", birthDay=" + birthDay +
-          ", photos=" + photos +
-          ", friends=" + friends +
-          ", interests=" + interests +
-          ", gender='" + gender + '\'' +
-          ", work='" + work + '\'' +
-          ", school='" + school + '\'' +
-          ", city='" + city + '\'' +
-          ", about='" + about + '\'' +
-          '}';
+ public void setAge(Integer age) {
+  this.age = age;
  }
+
+
 
 }

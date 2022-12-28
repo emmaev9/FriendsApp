@@ -26,5 +26,5 @@ public class Friend {
 
     public void setUser(Users user) {
         this.user = user;
-   }
+    }
 }

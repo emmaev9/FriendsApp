@@ -7,7 +7,6 @@ import java.util.List;
 
 public interface IUserService {
     public void saveUser(UserDTO userDto);
-    public List<Object> isUserPresent(Users user);
     List<UserDTO> findAllUsers();
     Users findUserByEmail(String email);
 

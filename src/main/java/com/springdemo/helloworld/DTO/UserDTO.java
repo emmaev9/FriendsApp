@@ -1,15 +1,22 @@
 package com.springdemo.helloworld.DTO;
 
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 
+
+import com.springdemo.helloworld.Entity.Friend;
+import com.springdemo.helloworld.Entity.Interest;
+import com.springdemo.helloworld.Entity.Photo;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
-import javax.persistence.Column;
+import javax.validation.constraints.Past;
+import javax.validation.constraints.Size;
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -21,13 +28,14 @@ public class UserDTO {
     private String firstName;
     @NotEmpty
     private String lastName;
+
     @NotEmpty(message = "Email should not be empty")
     @Email
     private String email;
     @NotEmpty(message = "Password should not be empty")
     private String password;
 
-    @NotEmpty
+    @Past
     private LocalDate birthDay;
 
     @NotEmpty
@@ -39,6 +47,13 @@ public class UserDTO {
 
     @NotEmpty
     private String city;
+
+    @NotEmpty
+    private List<Photo> photos;
+
+    private List<Friend> friends;
+
+    private List<Interest> interests;
 
     private String about;
 

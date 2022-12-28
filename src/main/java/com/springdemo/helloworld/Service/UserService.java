@@ -18,23 +18,33 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements IUserService {
 
-     private UserRepository userRepository;
-     private PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
-
-
-    public UserService(){}
+    private UserRepository userRepository;
 
     @Autowired
-    public UserService(UserRepository userRepository,
-                           PasswordEncoder passwordEncoder) {
+    private PasswordEncoder passwordEncoder;
+
+
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder
+                           ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
+
     }
+
     private UserDTO mapToUserDTO(Users user){
         UserDTO userDto = new UserDTO();
         userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getFirstName());
+        userDto.setLastName(user.getLastName());
         userDto.setEmail(user.getEmail());
+        userDto.setCity(user.getCity());
+        userDto.setAbout(user.getAbout());
+        userDto.setGender(user.getGender());
+        userDto.setBirthDay(user.getBirthDay());
+        userDto.setFriends(user.getFriends());
+        userDto.setInterests(user.getInterests());
+        userDto.setSchool(user.getSchool());
+        userDto.setPhotos(user.getPhotos());
+        userDto.setWork(user.getWork());
         return userDto;
     }
 
@@ -51,21 +61,23 @@ public class UserService implements IUserService {
     public void saveUser(UserDTO userDto) {
         Users user = new Users();
         user.setFirstName(userDto.getFirstName());
-        user.setLastName(user.getLastName());
+        user.setLastName(userDto.getLastName());
         user.setEmail(userDto.getEmail());
+        user.setCity(userDto.getCity());
+        user.setAbout(userDto.getAbout());
+        user.setGender(userDto.getGender());
+        user.setBirthDay(userDto.getBirthDay());
+        user.setFriends(userDto.getFriends());
+        user.setInterests(userDto.getInterests());
+        user.setSchool(userDto.getSchool());
+        user.setPhotos(userDto.getPhotos());
+        user.setWork(userDto.getWork());
         // encrypt the password using spring security
         user.setPassword(passwordEncoder.encode(userDto.getPassword()));;
         userRepository.save(user);
     }
 
-    public void deleteUser(Integer id) {
-        boolean exists = userRepository.existsById(id);
-        if(!exists){
-            throw new IllegalStateException("student with id" + id +"does not exists");
-        }
-        userRepository.deleteById(id);
-    }
-
+    /*
     @Transactional
     public void updateUser(Integer userId, String name, String email) {
         boolean exists = userRepository.existsById(userId);
@@ -85,7 +97,7 @@ public class UserService implements IUserService {
             }
             user.setEmail(email);
         }
-    }
+    }*/
 
     @Override
     public Users findUserByEmail(String email) {
@@ -100,7 +112,7 @@ public class UserService implements IUserService {
         return userDto;
     }
 
-    @Override
+    /*@Override
     public List<Object> isUserPresent(Users user) {
         boolean userExists = false;
         String message = null;
@@ -110,5 +122,5 @@ public class UserService implements IUserService {
             message = "Email Already Present!";
         }
         return Arrays.asList(userExists, message);
-    }
+    }*/
 }
