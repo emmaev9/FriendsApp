@@ -30,7 +30,7 @@ public class Interest {
     private String name;
 
     @JsonIgnore
-    @ManyToMany(mappedBy = "interests", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.DETACH, CascadeType.REFRESH})
+    @ManyToMany(mappedBy = "interests", cascade = {CascadeType.MERGE})
     private List<Users> users;
 
     public void setName(String name) {

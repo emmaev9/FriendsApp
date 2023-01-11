@@ -20,11 +20,11 @@ public class FileService {
 
     public String saveImage(MultipartFile file) throws Exception{
 
-        if(!contentTypes.contains(file.getContentType())){
+     /*   if(!contentTypes.contains(file.getContentType())){
             throw new Exception("File isn't an image");
-        }
+        }*/
 
-        String folder = servletContext.getRealPath("/") +"/Upload/image/";
+        String folder = /*servletContext.getRealPath("/")*/ "C:/Users/Emma/Documents/Upload/image/";
         byte[] bytes = file.getBytes();
         Path path = Paths.get(folder +file.getOriginalFilename());
         Files.write(path,bytes);

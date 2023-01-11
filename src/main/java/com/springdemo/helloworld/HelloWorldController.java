@@ -11,6 +11,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -55,10 +56,8 @@ public class HelloWorldController {
 
     @GetMapping("/register")
     public String showRegistrationForm(Model model, HttpSession session){
-        // create model object to store form data
         RegisterFormModel registerFormModel = new RegisterFormModel();
-       // List<Photo> photos = new ArrayList<>();
-       // model.addAttribute("photos", photos);
+
         model.addAttribute("registerFormModel", registerFormModel);
         return "register";
     }
@@ -96,24 +95,32 @@ public class HelloWorldController {
 
 
         List<Interest> interests = interestService.findInterests(registerFormModel.getInterests());
-        System.out.println(interests);
+        System.out.println("INTERESTS:" + interests.get(0).getName());
         currentUser.setInterests(interests);
 
+
+
+
+
+
         try{
-            for (int i = 0; i < registerFormModel.getPhotos().length; i++) {
-                fileService.saveImage(registerFormModel.getPhotos()[i]);
-                String photoPath = "/Upload/image/" + registerFormModel.getPhotos()[i].getOriginalFilename();
+            MultipartFile[] files = registerFormModel.getPhotos();
+            for (int i = 0; i < files.length; i++) {
+                fileService.saveImage(files[i]);
+                String photoPath = "/Upload/image/" + files[i].getOriginalFilename();
                 Photo photo = new Photo();
 
                 photo.setLink(photoPath);
                 photo.setUser(currentUser);
                 System.out.println(photo);
+                IuserService.saveUser(currentUser);
                 photoService.savePhoto(photo);
             }
         }catch(Exception e){
             System.out.println(e);
         }
-        IuserService.saveUser(currentUser);
+
+
        // securityService.autoLogin(currentUser.getEmail(), currentUser.getPassword());
         System.out.println("Se salveaza : " + currentUser.getFirstName() + " " + currentUser.getLastName());
         return "process_register";

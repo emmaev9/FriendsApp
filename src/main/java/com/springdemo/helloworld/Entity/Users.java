@@ -60,8 +60,7 @@ public class Users {
  @OneToMany(mappedBy = "user")
  private List<Photo> photos;
 
- @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
-         CascadeType.DETACH, CascadeType.REFRESH})
+ @ManyToMany(cascade= { CascadeType.MERGE})
  @JoinTable(
          name = "user_interest",
          joinColumns = {@JoinColumn(name = "user_id")},
@@ -88,7 +87,7 @@ public class Users {
  @Size(max = 500,message = "About is max size = 500 character")
  private String about;
 
- @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+ @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.PERSIST)
  @JoinTable(
          name="users_roles",
          joinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")},
