@@ -1,8 +1,5 @@
 package com.springdemo.helloworld.Entity;
 
-import com.springdemo.helloworld.Entity.Friend;
-import com.springdemo.helloworld.Entity.Interest;
-import com.springdemo.helloworld.Entity.Photo;
 import  javax.persistence.CascadeType;
 import  javax.persistence.Column;
 import  javax.persistence.Entity;
@@ -15,17 +12,12 @@ import  javax.persistence.ManyToMany;
 import  javax.persistence.OneToMany;
 import  javax.persistence.Table;
 import  javax.persistence.Transient;
-import  javax.persistence.UniqueConstraint;
-import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
-import java.time.LocalDate;
-import java.time.Period;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.*;
@@ -61,14 +53,12 @@ public class Users {
  private Integer age; //nu reprezinta o coloana in tabel
 
  @Column(nullable=false)
- private LocalDate birthDay;
+ //@JsonFormat(shape = JsonFormat.Shape.STRING, pattern="yyyy-MM-dd")
+ private String birthDay;
 
 
  @OneToMany(mappedBy = "user")
  private List<Photo> photos;
-
- @OneToMany(mappedBy = "user")
- private List<Friend> friends;
 
  @ManyToMany(cascade= {CascadeType.PERSIST, CascadeType.MERGE,
          CascadeType.DETACH, CascadeType.REFRESH})
@@ -78,6 +68,9 @@ public class Users {
          inverseJoinColumns = {@JoinColumn(name = "interest_id")}
  )
  private List<Interest> interests;
+
+ @OneToMany(mappedBy = "user")
+ private List<Like> likes;
 
  @Column(nullable=false)
  private String gender;
@@ -95,15 +88,27 @@ public class Users {
  @Size(max = 500,message = "About is max size = 500 character")
  private String about;
 
+ @ManyToMany(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+ @JoinTable(
+         name="users_roles",
+         joinColumns={@JoinColumn(name="user_id", referencedColumnName="user_id")},
+         inverseJoinColumns={@JoinColumn(name="role_id", referencedColumnName="role_id")})
+ private List<Role> roles = new ArrayList<>();
+
 
  public Integer getAge() {
-  return Period.between(birthDay, LocalDate.now()).getYears();
+  return 5/*Period.between(birthDay, LocalDate.now()).getYears(); */;
  }
 
  public void setAge(Integer age) {
   this.age = age;
  }
 
+ public List<Role> getRoles() {
+  return roles;
+ }
 
-
+ public void setRoles(List<Role> roles) {
+  this.roles = roles;
+ }
 }

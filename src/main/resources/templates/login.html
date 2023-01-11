@@ -10,247 +10,36 @@
           crossorigin="anonymous">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <!---------------------------------------------------------------------------------------------------------------------
-    -----------------------------------------------------------------------------------------------------------------------
-    --------------------------------------------------------------------------------------------------------------->
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <style>
-
-        body,html{
-            display: grid;
-            background: -webkit-linear-gradient(left, blueviolet, skyblue);
-        }
-
-        ::selection{
-            background: skyblue;
-            color: #fff;
-        }
-
-
-        .wrapper{
-            overflow: hidden;
-            position: center;
-            max-width: 390px;
-            margin-left: 520px;
-            background: #fff;
-            padding: 30px;
-            border-radius: 10px;
-            box-shadow: 0px 15px 20px rgba(0,0,0,0.1);
-        }
-        .wrapper .title-text{
-            display: flex;
-            width: 200%;
-        }
-        .wrapper .title{
-            width: 50%;
-            font-size: 35px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
-        }
-        .wrapper .slide-controls{
-
-            display: flex;
-            height: 50px;
-            width: 100%;
-            overflow: hidden;
-            margin: 30px 0 10px 0;
-            justify-content: space-between;
-            border: 1px solid lightgrey;
-            border-radius: 5px;
-        }
-        .slide-controls .slide{
-            height: 100%;
-            width: 100%;
-            color: #fff;
-            font-size: 18px;
-            font-weight: 500;
-            text-align: center;
-            line-height: 48px;
-            cursor: pointer;
-            z-index: 1;
-            transition: all 0.6s ease;
-        }
-        .slide-controls label.signup{
-            color: #000;
-        }
-        .slide-controls .slider-tab{
-            position: absolute;
-            height: 100%;
-            width: 50%;
-            left: 0;
-            z-index: 0;
-            border-radius: 5px;
-            background: -webkit-linear-gradient(right, rebeccapurple,skyblue);
-            transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
-        }
-        input[type="radio"]{
-            display: none;
-        }
-        #signup:checked ~ .slider-tab{
-            left: 50%;
-        }
-        #signup:checked ~ label.signup{
-            color: #fff;
-            cursor: default;
-            user-select: none;
-        }
-        #signup:checked ~ label.login{
-            color: #000;
-        }
-        #login:checked ~ label.signup{
-            color: #000;
-        }
-        #login:checked ~ label.login{
-            cursor: default;
-            user-select: none;
-        }
-        .wrapper .form-container{
-            width: 100%;
-            overflow: hidden;
-            place-items: center;
-        }
-        .form-container .form-inner{
-            display: flex;
-            width: 200%;
-        }
-        .form-container .form-inner form{
-            width: 50%;
-            transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
-        }
-        .form-inner form .field{
-            height: 50px;
-            width: 100%;
-            margin-top: 20px;
-        }
-        .form-inner form .field input{
-            height: 100%;
-            width: 100%;
-            outline: none;
-            padding-left: 15px;
-            border-radius: 5px;
-            border: 1px solid lightgrey;
-            border-bottom-width: 2px;
-            font-size: 17px;
-            transition: all 0.3s ease;
-        }
-        .form-inner form .field input:focus{
-            border-color: purple;
-            /* box-shadow: inset 0 0 3px #fb6aae; */
-        }
-        .form-inner form .field input::placeholder{
-            color: #999;
-            transition: all 0.3s ease;
-        }
-        form .field input:focus::placeholder{
-            color: #b3b3b3;
-        }
-        .form-inner form .pass-link{
-            margin-top: 5px;
-        }
-        .form-inner form .signup-link{
-            text-align: center;
-            margin-top: 30px;
-        }
-        .form-inner form .pass-link a,
-        .form-inner form .signup-link a{
-            color: dodgerblue;
-            text-decoration: none;
-        }
-        .form-inner form .pass-link a:hover,
-        .form-inner form .signup-link a:hover{
-            text-decoration: underline;
-        }
-        form .btn{
-            height: 50px;
-            width: 100%;
-            border-radius: 5px;
-            position: relative;
-            overflow: hidden;
-        }
-        form .btn .btn-layer{
-            height: 100%;
-            width: 300%;
-            position: absolute;
-            left: -100%;
-            background: -webkit-linear-gradient(right, rebeccapurple, skyblue,rebeccapurple,skyblue);
-            border-radius: 5px;
-            transition: all 0.4s ease;;
-        }
-        form .btn:hover .btn-layer{
-            left: 0;
-        }
-        form .btn input[type="submit"]{
-            height: 100%;
-            width: 100%;
-            z-index: 1;
-            position: relative;
-            background: none;
-            border: none;
-            color: #fff;
-            padding-left: 0;
-            border-radius: 5px;
-            font-size: 20px;
-            font-weight: 500;
-            cursor: pointer;
-        }
-
-        .topnav {
-            background: -webkit-linear-gradient(right, blueviolet, skyblue);
-            overflow: hidden;
-        }
-
-
-        /* Style the links inside the navigation bar */
-        .topnav a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 10px 10px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        /* Add an active class to highlight the current page */
-        .active {
-            background-color: transparent;
-            color: white;
-        }
-
-        /* Hide the link that should open and close the topnav on small screens */
-        .topnav .icon {
-            display: none;
-        }
-
-        .topnav a:hover, .dropdown:hover .dropbtn {
-            background-color: blueviolet;
-            color: white;
-        }
-    </style>
-
-
-
-    <!---------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------->
-
-
-
-
-
-
-
+    <link rel="stylesheet" href = "css/style.css">
+    <link rel="stylesheet" href = "css/logins.css">
 
 </head>
 <body>
 
 
-<div class="topnav" id="myTopnav">
-    <a th:href="@{/home}">Home</a>
-    <a th:href="@{/login}" class="active">Login</a>
-</div>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a th:href="@{/home}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/about}" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
+
+
 <br />
 <br />
 <br />
@@ -274,13 +63,12 @@
 
         <div class="form-inner">
 
-            <form th:action="@{/login}" method="post" class="login">
+            <form th:action="@{/login}" method="post" class="login" role="form">
                 <div class="field">
                     <input type="text"
-                           id="email"
-                           name="email"
+                           id="username"
+                           name="username"
                            class = "form-control"
-
                            placeholder="Email Address"
                            required
                     >
@@ -291,7 +79,6 @@
                            id="password"
                            name="password"
                            class="form-control"
-
                            placeholder="Password"
                            required
                     >
@@ -303,7 +90,8 @@
                     <button class ="btn"
                             type="submit"
                             value="Login"
-                            onclick="location.href = 'afterlogin.html'"
+                            id="login-btn"
+
                     > Login</button>
                 </div>
                 <div class="signup-link">
@@ -314,6 +102,16 @@
         </div>
     </div>
 </div>
+<script>
+    $('#login-btn').click(function() {
+    window.location='http://localhost:8080/afterlogin';
+});
+</script>
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
 
 </body>
 </html>

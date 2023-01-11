@@ -8,97 +8,34 @@
           rel="stylesheet"
           integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
           crossorigin="anonymous">
+    <link rel="stylesheet" href = "css/homes.css">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,700' rel='stylesheet' type='text/css'>
 
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 
-    <!---------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------->
-
-
-
-    <style>
-
-        body{
-            background: -webkit-linear-gradient(left, blueviolet, skyblue);
-        }
-
-
-        .wrapper .title{
-            width: 50%;
-            font-size: 35px;
-            font-weight: 600;
-            text-align: center;
-            transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
-        }
-        .slide-controls .slider-tab{
-            height: 100%;
-            width: 50%;
-            left: 0;
-            z-index: 0;
-            border-radius: 5px;
-            background: -webkit-linear-gradient(left, purple, blue);
-            transition: all 0.6s cubic-bezier(0.68,-0.55,0.265,1.55);
-        }
-        .card-registration .select-input.form-control[readonly]:not([disabled]) {
-            font-size: 20px;
-            line-height: 2.15;
-            padding-left: .75em;
-            padding-right: .75em;
-        }
-        .card-registration .select-arrow {
-            top: 13px;
-        }
-
-        .topnav a:hover, .dropdown:hover .dropbtn {
-            background-color: blueviolet;
-            color: white;
-        }
-
-        .topnav {
-            background: -webkit-linear-gradient(right, blueviolet, skyblue);
-            overflow: hidden;
-        }
-
-
-        /* Style the links inside the navigation bar */
-        .topnav a {
-            float: left;
-            display: block;
-            color: #f2f2f2;
-            text-align: center;
-            padding: 10px 10px;
-            text-decoration: none;
-            font-size: 17px;
-        }
-
-        /* Add an active class to highlight the current page */
-        .active {
-            background-color: transparent;
-            color: white;
-        }
-
-        /* Hide the link that should open and close the topnav on small screens */
-        .topnav .icon {
-            display: none;
-        }
-
-    </style>
-
-
-    <!---------------------------------------------------------------------------------------------------------------------
------------------------------------------------------------------------------------------------------------------------
---------------------------------------------------------------------------------------------------------------->
-
-
+    <link rel="stylesheet" href = "css/style.css">
+    <link rel = "stylesheet" href = "css/homes.css">
 
 </head>
 <body>
 
-<div class="topnav" id="myTopnav">
-    <a th:href="@{/home}" class="active">Home</a>
-    <a th:href="@{/login}">Login</a>
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
+    <div class="container">
 
-</div>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="fa fa-bars"></span> Menu
+        </button>
+
+        <div class="collapse navbar-collapse" id="ftco-nav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active"><a th:href="@{/home}" class="nav-link">Home</a></li>
+                <li class="nav-item"><a th:href="@{/login}" class="nav-link">Login</a></li>
+                <li class="nav-item"><a th:href="@{/about}" class="nav-link">About</a></li>
+            </ul>
+        </div>
+    </div>
+</nav>
+
 
 <br /><br />
 <div class="container">
@@ -106,5 +43,10 @@
         <h1 class="text-center"> Welcome to FriendZone </h1>
     </div>
 </div>
+<script src="js/jquery.min.js"></script>
+<script src="js/popper.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/main.js"></script>
+
 </body>
 </html>

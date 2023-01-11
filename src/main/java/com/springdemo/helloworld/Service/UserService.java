@@ -1,7 +1,9 @@
 package com.springdemo.helloworld.Service;
 
-import com.springdemo.helloworld.DTO.UserDTO;
+
+import com.springdemo.helloworld.Entity.Role;
 import com.springdemo.helloworld.Entity.Users;
+import com.springdemo.helloworld.Repository.RoleRepository;
 import com.springdemo.helloworld.Repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -18,66 +20,50 @@ import java.util.stream.Collectors;
 @Service
 public class UserService implements IUserService {
 
+   @Autowired
     private UserRepository userRepository;
+
+   @Autowired
+    private RoleRepository roleRepository;
 
     @Autowired
     private PasswordEncoder passwordEncoder;
 
 
-    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder
+    public UserService(UserRepository userRepository, PasswordEncoder passwordEncoder,  RoleRepository roleRepository
                            ) {
         this.userRepository = userRepository;
         this.passwordEncoder = passwordEncoder;
-
+        this.roleRepository = roleRepository;
     }
-
-    private UserDTO mapToUserDTO(Users user){
-        UserDTO userDto = new UserDTO();
-        userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getLastName());
-        userDto.setEmail(user.getEmail());
-        userDto.setCity(user.getCity());
-        userDto.setAbout(user.getAbout());
-        userDto.setGender(user.getGender());
-        userDto.setBirthDay(user.getBirthDay());
-        userDto.setFriends(user.getFriends());
-        userDto.setInterests(user.getInterests());
-        userDto.setSchool(user.getSchool());
-        userDto.setPhotos(user.getPhotos());
-        userDto.setWork(user.getWork());
-        return userDto;
-    }
-
 
     @Override
-    public List<UserDTO> findAllUsers() {
+    public List<Users> findAllUsers() {
         List<Users> users = userRepository.findAll();
-        return users.stream()
-                .map((user) -> mapToUserDTO(user))
-                .collect(Collectors.toList());
+        return users;
     }
 
     @Override
-    public void saveUser(UserDTO userDto) {
-        Users user = new Users();
-        user.setFirstName(userDto.getFirstName());
-        user.setLastName(userDto.getLastName());
-        user.setEmail(userDto.getEmail());
-        user.setCity(userDto.getCity());
-        user.setAbout(userDto.getAbout());
-        user.setGender(userDto.getGender());
-        user.setBirthDay(userDto.getBirthDay());
-        user.setFriends(userDto.getFriends());
-        user.setInterests(userDto.getInterests());
-        user.setSchool(userDto.getSchool());
-        user.setPhotos(userDto.getPhotos());
-        user.setWork(userDto.getWork());
+    public void saveUser(Users users) {
+        System.out.println("Saving user: " + users.getFirstName() + " " + users.getPassword());
         // encrypt the password using spring security
-        user.setPassword(passwordEncoder.encode(userDto.getPassword()));;
-        userRepository.save(user);
+        users.setPassword(passwordEncoder.encode(users.getPassword()));;
+        Role role = roleRepository.findByName("ROLE_ADMIN");
+        if(role == null){
+            role = checkRoleExist();
+        }
+        users.setRoles(Arrays.asList(role));
+
+        userRepository.save(users);
     }
 
-    /*
+    @Override
+    public Users findUserByEmail(String email) {
+        return userRepository.findByEmail(email);
+    }
+
+
+
     @Transactional
     public void updateUser(Integer userId, String name, String email) {
         boolean exists = userRepository.existsById(userId);
@@ -97,22 +83,16 @@ public class UserService implements IUserService {
             }
             user.setEmail(email);
         }
-    }*/
-
-    @Override
-    public Users findUserByEmail(String email) {
-        return userRepository.findByEmail(email);
     }
 
-    private UserDTO convertEntityToDto(Users user){
-        UserDTO userDto = new UserDTO();
-        userDto.setFirstName(user.getFirstName());
-        userDto.setLastName(user.getLastName());
-        userDto.setEmail(user.getEmail());
-        return userDto;
+    private Role checkRoleExist(){
+        Role role = new Role();
+        role.setName("ROLE_ADMIN");
+        return roleRepository.save(role);
     }
 
-    /*@Override
+
+   /*
     public List<Object> isUserPresent(Users user) {
         boolean userExists = false;
         String message = null;

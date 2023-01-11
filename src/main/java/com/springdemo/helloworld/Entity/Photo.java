@@ -8,6 +8,7 @@ import javax.persistence.*;
 @Entity
 @Table
 public class Photo {
+
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int photo_id;
@@ -42,4 +43,13 @@ public class Photo {
     public void setUser(Users user) {
         this.user = user;
    }
+
+    @Override
+    public String toString() {
+        return "Photo{" +
+                "photo_id=" + photo_id +
+                ", link='" + link + '\'' +
+                ", user=" + user +
+                '}';
+    }
 }
