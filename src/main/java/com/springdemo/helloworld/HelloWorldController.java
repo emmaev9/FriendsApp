@@ -4,9 +4,14 @@ package com.springdemo.helloworld;
 import com.springdemo.helloworld.Entity.Interest;
 import com.springdemo.helloworld.Entity.Photo;
 import com.springdemo.helloworld.Entity.Users;
+
+import com.springdemo.helloworld.Models.ChatMessage;
 import com.springdemo.helloworld.Models.RegisterFormModel;
 import com.springdemo.helloworld.Service.*;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.handler.annotation.DestinationVariable;
+import org.springframework.messaging.handler.annotation.MessageMapping;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +25,8 @@ import java.util.List;
 @Controller
 public class HelloWorldController {
 
-
+    @Autowired
+    private SimpMessagingTemplate simpMessagingTemplate;
     @Autowired
     private UserService IuserService;
 
@@ -133,6 +139,19 @@ public class HelloWorldController {
 
         return "users";
     }
+    @MessageMapping("/chat/{to}")
+    public void sendMessage(@DestinationVariable String to, ChatMessage message ) {
+
+
+        //System.out.println("handling send message"+message+"to"+to);
+        Users user = IuserService.findUserByEmail(to);
+        if (user != null) {
+            System.out.println("sending message to" + to);
+            //user.receiveMessage(message);
+            simpMessagingTemplate.convertAndSend("/topic/messages" + to, message);
+        }
+    }
+
 
 
 }

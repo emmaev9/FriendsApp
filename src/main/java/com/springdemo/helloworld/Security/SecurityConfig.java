@@ -5,6 +5,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
@@ -33,7 +34,7 @@ public class SecurityConfig{
         http.csrf().disable()
 
                     .authorizeRequests()
-                    .antMatchers( "/home","/register/**","/process_register", "/users", "/css/**", "/js/**").permitAll()
+                    .antMatchers( "/home","/register/**","/process_register","/message", "/users","/chat", "/css/**", "/js/**").permitAll()
                     .anyRequest().authenticated()
                     .and()
                 .formLogin(
@@ -57,6 +58,8 @@ public class SecurityConfig{
                     .userDetailsService(userDetailsService)
                     .passwordEncoder(passwordEncoder());
         }
+
+
 
 
 
