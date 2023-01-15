@@ -1,15 +1,17 @@
 package com.springdemo.helloworld.Models;
 
 
+import java.awt.*;
 
-    public class ChatMessage {
+public class ChatMessage {
         private MessageType type;
         private String content;
         private String sender;
 
-        public enum MessageType {
-            CHAT, JOIN, LEAVE
-        }
+
+    public enum MessageType {
+        CHAT, LEAVE, JOIN
+    }
 
         public MessageType getType() {
             return type;

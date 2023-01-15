@@ -60,6 +60,11 @@ public class HelloWorldController {
         return "afterlogin";
     }
 
+    @GetMapping("/chat")
+    public String chat(){
+        return "chat";
+    }
+
     @GetMapping("/register")
     public String showRegistrationForm(Model model, HttpSession session){
         RegisterFormModel registerFormModel = new RegisterFormModel();
@@ -139,6 +144,7 @@ public class HelloWorldController {
 
         return "users";
     }
+   /*
     @MessageMapping("/chat/{to}")
     public void sendMessage(@DestinationVariable String to, ChatMessage message ) {
 
@@ -151,7 +157,7 @@ public class HelloWorldController {
             simpMessagingTemplate.convertAndSend("/topic/messages" + to, message);
         }
     }
-
+*/
 
 
 }
