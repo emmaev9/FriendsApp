@@ -63,25 +63,17 @@ public class HelloWorldController {
     }
     @PostMapping("/register")
     public String registration(@Valid @ModelAttribute RegisterFormModel registerFormModel,
-                               //final @RequestParam("photo") MultipartFile[] photoFiles,
-                               //@RequestParam("interest") List<String> interests,
-                               //HttpServletRequest request,
-                               HttpSession session,
                                BindingResult result,
                                Model model){
-
         Users existingUser = IuserService.findUserByEmail(registerFormModel.getEmail());
-
         if(existingUser != null && existingUser.getEmail() != null && !existingUser.getEmail().isEmpty()){
             result.rejectValue("email", null,
                     "There is already an account registered with the same email");
         }
-
         if(result.hasErrors()){
             model.addAttribute("registerFormModel", registerFormModel);
             return "/register";
         }
-        //Users currentUser = (Users)session.getAttribute("user");
         Users currentUser = new Users();
         currentUser.setFirstName(registerFormModel.getFirstName());
         currentUser.setLastName(registerFormModel.getLastName());
@@ -92,15 +84,12 @@ public class HelloWorldController {
         currentUser.setWork(registerFormModel.getWork());
         currentUser.setSchool(registerFormModel.getSchool());
         currentUser.setAbout(registerFormModel.getAbout());
+        currentUser.setCity(registerFormModel.getCity());
 
 
         List<Interest> interests = interestService.findInterests(registerFormModel.getInterests());
         System.out.println("INTERESTS:" + interests.get(0).getName());
         currentUser.setInterests(interests);
-
-
-
-
 
 
         try{

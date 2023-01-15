@@ -20,6 +20,8 @@ public class PhotoService {
         return photoRepository.findAll();
     }
 
+    //public Photo findPhotoById(Integer id){return photoRepository.findById(id);}
+
     public void savePhoto(Photo photo){
         photoRepository.save(photo);
     }
