@@ -24,7 +24,7 @@ public class FileService {
             throw new Exception("File isn't an image");
         }*/
 
-        String folder = /*servletContext.getRealPath("/")*/ "C:/Users/VIVIEN STRATULAT/OneDrive/Documents/Upload/image/";
+        String folder = /*servletContext.getRealPath("/")*/ "C:/Users/Emma/Documents/PPPPPPP/src/main/resources/templates/Upload/image/";
         byte[] bytes = file.getBytes();
         Path path = Paths.get(folder +file.getOriginalFilename());
         Files.write(path,bytes);

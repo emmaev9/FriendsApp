@@ -64,6 +64,13 @@ public class UserService implements IUserService {
 
 
 
+    @Override
+    public List<Users> findAllPosibleMatches(Integer id) {
+        List<Users> users = userRepository.findAll();
+        users.remove(userRepository.findById(id));
+        return users;
+    }
+
     @Transactional
     public void updateUser(Integer userId, String name, String email) {
         boolean exists = userRepository.existsById(userId);

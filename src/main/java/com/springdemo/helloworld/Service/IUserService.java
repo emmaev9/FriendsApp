@@ -9,6 +9,7 @@ public interface IUserService {
     public void saveUser(Users users);
     List<Users> findAllUsers();
     Users findUserByEmail(String email);
+    List<Users> findAllPosibleMatches(Integer id);
 
 
 

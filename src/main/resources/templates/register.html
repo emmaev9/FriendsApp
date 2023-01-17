@@ -224,6 +224,8 @@
                                                id="city"
                                                th:field ="*{city}"
                                         />
+                                        <p th:errors = "*{city}" class="text-danger"
+                                           th:if="${#fields.hasErrors('city')}"></p>
 
                                     </div>
 
@@ -353,6 +355,8 @@
 
 
 </script>
+
+
 <script src="js/jquery.min.js"></script>
 <script src="js/popper.js"></script>
 <script src="js/bootstrap.min.js"></script>

@@ -12,6 +12,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.DestinationVariable;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -20,7 +23,10 @@ import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.Random;
 
 @Controller
 public class HelloWorldController {
@@ -56,7 +62,33 @@ public class HelloWorldController {
     }
 
     @GetMapping("/afterlogin")
-    public String afterLogin(){
+    public String afterLogin(Model model){
+
+      //  model.addAttribute("user", user);
+        String email = "";
+        Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+
+        if (principal instanceof UserDetails) {
+            email = ((UserDetails)principal).getUsername();
+        } else {
+            email  = principal.toString();
+        }
+        System.out.println(email);
+        Users user = IuserService.findUserByEmail(email);
+
+        /*List<String> photoLinks = new ArrayList<>();
+        List<Photo> photos = user.getPhotos();
+        for(Photo p: photos){
+            photoLinks.add(p.getLink().substring(1));
+            System.out.println(p.getLink().substring(1));
+        }*/
+        int randomIndex = 0;
+        List<Users> possibleMatches = IuserService.findAllPosibleMatches(user.getUser_id());
+        for (int i = 0; i < possibleMatches.size(); i++) {
+            Random rand = new Random();
+            randomIndex = rand.nextInt(possibleMatches.size());
+        }
+        model.addAttribute("user", possibleMatches.get(randomIndex));
         return "afterlogin";
     }
 
@@ -103,17 +135,12 @@ public class HelloWorldController {
         currentUser.setWork(registerFormModel.getWork());
         currentUser.setSchool(registerFormModel.getSchool());
         currentUser.setAbout(registerFormModel.getAbout());
-
+        currentUser.setCity(registerFormModel.getCity());
 
         List<Interest> interests = interestService.findInterests(registerFormModel.getInterests());
         System.out.println("INTERESTS:" + interests.get(0).getName());
         currentUser.setInterests(interests);
-
-
-
-
-
-
+        List<Photo> userPhotos = new ArrayList<>();
         try{
             MultipartFile[] files = registerFormModel.getPhotos();
             for (int i = 0; i < files.length; i++) {
@@ -124,12 +151,19 @@ public class HelloWorldController {
                 photo.setLink(photoPath);
                 photo.setUser(currentUser);
                 System.out.println(photo);
+                userPhotos.add(photo);
                 IuserService.saveUser(currentUser);
                 photoService.savePhoto(photo);
+
+            }
+            IuserService.saveUser(currentUser);
+            for(Photo p: userPhotos){
+                photoService.savePhoto(p);
             }
         }catch(Exception e){
             System.out.println(e);
         }
+
 
 
        // securityService.autoLogin(currentUser.getEmail(), currentUser.getPassword());

@@ -43,4 +43,23 @@ body{
 /* Hide the link that should open and close the topnav on small screens */
 .topnav .icon {
     display: none;
+
 }
+
+.carousel-control {
+    opacity: .5;
+    transition: opacity .15s ease;
+}
+
+
+.carousel-item,
+.carousel-inner,
+.carousel-inner-active,
+.carousel-inner img {
+    height: 100%;
+    width: auto;
+}
+
+
+
+

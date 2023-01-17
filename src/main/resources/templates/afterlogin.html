@@ -56,15 +56,81 @@
 
 
 <br /><br />
-<div class="container">
-    <div class="row">
-        <h1 class="text-center"> Haleluia </h1>
+<!--
+<script src="js/jquery.min.js"></script>
+
+<div id="carouselExampleControls" class="carousel slide" data-bs-ride="carousel">
+    <div class="carousel-inner">
+
+        <div class="carousel-item" th:each="url, iter : ${user.photos}" th:class="${iter.index} == 0 ? 'item' : 'item active'">
+
+             <img class="d-block w-100" th:src="${url.link}" height="200px" width="100">
+        </div>
+
     </div>
-</div><script src="js/jquery.min.js"></script>
+    <a class="carousel-control-prev" href="#carouselExampleControls" role="button" data-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="sr-only">Previous</span>
+    </a>
+    <a class="carousel-control-next" href="#carouselExampleControls" role="button" data-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="sr-only">Next</span>
+    </a>
+</div>
+-->
+<div id = slides>
+<div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
+    <div class="carousel-indicators">
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="1" aria-label="Slide 2"></button>
+        <button type="button" data-bs-target="#carouselExampleDark" data-bs-slide-to="2" aria-label="Slide 3"></button>
+    </div>
+    <div class="carousel-inner">
+        <div class="carousel-item active" data-bs-interval="10000">
+            <img th:src="${user.photos[0].link}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 th:text="${user.firstName} + ' ' + ${user.lastName}"  > </h5>
+                <p></p>
+            </div>
+        </div>
+       <!--
+        <div class="carousel-item" data-bs-interval="10000">
+            <img th:src="${user.photos[1].link}" class="d-block w-100" alt="...">
+            <div class="carousel-caption d-none d-md-block">
+                <h5 > </h5>
+                <p th:text="'Studies at: ' + ${user.school}"></p>
+            </div>
+        </div>
+         -->
+    </div>
+    <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
+        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Previous</span>
+    </button>
+    <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="next">
+        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+        <span class="visually-hidden">Next</span>
+    </button>
+</div>
+</div>
+
 <script src="js/popper.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
 
+<script>
+    // Activate Carousel
+    $("#carouselExampleDark").carousel();
 
+    // Enable Carousel Indicators
+    $(".item").click(function(){
+        $("#carouselExampleDark").carousel(1);
+    });
+
+    // Enable Carousel Controls
+    $(".left").click(function(){
+        $("#carouselExampleDark").carousel("prev");
+    });
+</script>
 
 </body>
