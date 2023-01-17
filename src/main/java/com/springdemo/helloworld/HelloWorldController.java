@@ -83,7 +83,7 @@ public class HelloWorldController {
             System.out.println(p.getLink().substring(1));
         }*/
         int randomIndex = 0;
-        List<Users> possibleMatches = IuserService.findAllPosibleMatches(user.getUser_id());
+        List<Users> possibleMatches = IuserService.findAllPosibleMatches(email);
         for (int i = 0; i < possibleMatches.size(); i++) {
             Random rand = new Random();
             randomIndex = rand.nextInt(possibleMatches.size());

@@ -47,9 +47,10 @@ public class UserService implements IUserService {
     public void saveUser(Users users) {
         System.out.println("Saving user: " + users.getFirstName() + " " + users.getPassword());
         // encrypt the password using spring security
-        users.setPassword(passwordEncoder.encode(users.getPassword()));;
+        users.setPassword(passwordEncoder.encode(users.getPassword()));
+        ;
         Role role = roleRepository.findByName("ROLE_ADMIN");
-        if(role == null){
+        if (role == null) {
             role = checkRoleExist();
         }
         users.setRoles(Arrays.asList(role));
@@ -65,9 +66,9 @@ public class UserService implements IUserService {
 
 
     @Override
-    public List<Users> findAllPosibleMatches(Integer id) {
+    public List<Users> findAllPosibleMatches(String email) {
         List<Users> users = userRepository.findAll();
-        users.remove(userRepository.findById(id));
+        users.remove(userRepository.findByEmail(email));
         return users;
     }
 
