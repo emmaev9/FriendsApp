@@ -12,7 +12,7 @@ public class WebSocketChatController {
     @MessageMapping("/register")
             @SendTo("/topic/public")
             public ChatMessage register(@Payload ChatMessage chatMessage, SimpMessageHeaderAccessor headerAccessor) {
-                headerAccessor.getSessionAttributes().put("username", chatMessage.getSender());
+                headerAccessor.getSessionAttributes().put("email", chatMessage.getSender());
                 return chatMessage;
             }
 

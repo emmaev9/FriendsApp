@@ -45,7 +45,7 @@
                 </li>
                 <li class="nav-item"><a th:href="@{/afterlogin}" class="nav-link">Home</a></li>
                 <li class="nav-item"><a th:href="@{/chat}" class="nav-link">Chat</a></li>
-                <li class="nav-item"><a th:href="@{/home}" class="nav-link">Contact</a></li>
+                <li class="nav-item"><a th:href="@{/contact}" class="nav-link">Contact</a></li>
                 <li class="nav-item"><a th:href="@{/about}" class="nav-link">About</a> </li>
                 <li class="nav-item"><a th:href="@{/login}" class="nav-link">Logout</a> </li>
 
@@ -78,6 +78,9 @@
     </a>
 </div>
 -->
+
+
+
 <div id = slides>
 <div id="carouselExampleDark" class="carousel carousel-dark slide" data-bs-ride="carousel">
     <div class="carousel-indicators">
@@ -88,20 +91,21 @@
     <div class="carousel-inner">
         <div class="carousel-item active" data-bs-interval="10000">
             <img th:src="${user.photos[0].link}" class="d-block w-100" alt="...">
-            <div class="carousel-caption d-none d-md-block">
-                <h5 th:text="${user.firstName} + ' ' + ${user.lastName}"  > </h5>
-                <p></p>
-            </div>
+
         </div>
-       <!--
+        <div class="carousel-item" th:each="url, iter : ${user.photos}">
+            <img class="d-block w-100" th:src="${url.link}" >
+        </div>
+    </div>
+        <!--
         <div class="carousel-item" data-bs-interval="10000">
             <img th:src="${user.photos[1].link}" class="d-block w-100" alt="...">
             <div class="carousel-caption d-none d-md-block">
                 <h5 > </h5>
-                <p th:text="'Studies at: ' + ${user.school}"></p>
+                <p th:text=" ${user.about}"></p>
             </div>
         </div>
-         -->
+       -->
     </div>
     <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleDark" data-bs-slide="prev">
         <span class="carousel-control-prev-icon" aria-hidden="true"></span>
@@ -114,23 +118,68 @@
 </div>
 </div>
 
+<div class="col-lg-8">
+    <div class="card mb-3">
+        <div class="card-body">
+            <div class="row">
+                <div class="col-sm-3">
+                    <p class="mb-0">Name</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0" th:text="${user.firstName} + ' ' + ${user.lastName}"></p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p class="mb-0">City</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0" th:text="${user.city}"> </p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p class="mb-0">School</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0" th:text="${user.school}"></p>
+                </div>
+            </div>
+            <hr>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p class="mb-0">About</p>
+                </div>
+                <div class="col-sm-9">
+                    <p class="text-muted mb-0" th:text="${user.school}"></p>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-3">
+                    <p class="mb-0">Interests</p>
+                </div>
+                <div class="col-sm-9">
+                    <div class="text-muted mb-0" th:each="inter, iter : ${user.interests}">
+                        <p th:text=" '♥' + ${inter.name} + ' '" > </p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+
+<button type="button" class="btn btn-primary btn-lg">♥</button>
+<button type="button" class="btn btn-secondary btn-lg">Pass 💔</button>
+
+
+
 <script src="js/popper.js"></script>
 <script src="js/bootstrap.min.js"></script>
 <script src="js/main.js"></script>
 
-<script>
-    // Activate Carousel
-    $("#carouselExampleDark").carousel();
 
-    // Enable Carousel Indicators
-    $(".item").click(function(){
-        $("#carouselExampleDark").carousel(1);
-    });
-
-    // Enable Carousel Controls
-    $(".left").click(function(){
-        $("#carouselExampleDark").carousel("prev");
-    });
-</script>
 
 </body>

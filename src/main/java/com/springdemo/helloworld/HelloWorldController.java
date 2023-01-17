@@ -61,6 +61,16 @@ public class HelloWorldController {
         return "login";
     }
 
+    @GetMapping("/about")
+    public String about() {
+        return "about";
+    }
+
+    @GetMapping("/contact")
+    public String contact() {
+        return "contact";
+    }
+
     @GetMapping("/afterlogin")
     public String afterLogin(Model model){
 
