@@ -2,7 +2,7 @@
 
 Aplicatie Web de socializare implementata cu Java Spring si Thymeleaf.
 
-Dependențe
+1. Dependențe
 -Spring Boot, Spring Security
 -MySQL, Hibernate
 -Thymeleaf
